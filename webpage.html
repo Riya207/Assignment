@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 300px;
+        }
+        .product img {
+            max-width: 100%;
+        }
+        .product h2 {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .product p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="product" class="product"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const productContainer = document.getElementById('product');
+
+
+    fetch("https://www.course-api.com/react-store-single-product?id=recZkNf2kwmdBcqd0")
+        .then(response => response.json())
+        .then(product => {
+           
+            productContainer.innerHTML = `
+                <img src="${product.images[0].url}" alt="${product.name}">
+                <h2>${product.name}</h2>
+                <p>Price: ${product.price}</p>
+                <p>${product.description}</p>
+            `;
+        })
+        .catch(error => {
+            console.error('Error fetching the product:', error);
+            productContainer.innerHTML = '<p>Failed to load product details.</p>';
+        });
+});
+    </script>
+</body>
+</html>
